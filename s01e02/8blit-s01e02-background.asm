@@ -9,11 +9,11 @@ BLUE         = $9A
 	SEG
 	ORG $F000
 	
-Reset
+Reset:
 ; Clear RAM and all TIA registers
 	ldx #0 
 	lda #0 
-Clear           
+Clear:          
 	sta 0,x 
 	inx 
 	bne Clear
@@ -23,7 +23,7 @@ Clear
 	sta COLUBK             ; set the background color
 ;------------------------------------------------
 
-StartOfFrame
+StartOfFrame:
 ; Start of new frame
 ; Start of vertical blank processing
 	lda #0
@@ -38,7 +38,7 @@ StartOfFrame
 ;------------------------------------------------
 ; 37 scanlines of vertical blank. . .
 	ldx #0
-VerticalBlank   
+VerticalBlank:   
 	sta WSYNC
 	inx
 	cpx #37
@@ -52,7 +52,7 @@ DrawField:
         ;COLUBK
 
 	sta WSYNC
-        inx
+    inx
 	cpx #192
 	bne DrawField
 ;------------------------------------------------
@@ -62,7 +62,7 @@ DrawField:
 ;------------------------------------------------
 ; 30 scanlines of overscan. . .
 	ldx #0
-Overscan        
+Overscan:        
 	sta WSYNC
 	inx
 	cpx #30
@@ -72,7 +72,7 @@ Overscan
 
 	ORG $FFFA
 	
-InterruptVectors
+InterruptVectors:
 	.word Reset          ; NMI
 	.word Reset          ; RESET
 	.word Reset          ; IRQ
